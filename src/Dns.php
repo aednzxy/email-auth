@@ -27,8 +27,8 @@ class Dns
         {
             if (-1 == $priority || $row['pri'] < $priority)
             {
-                $priority = $record['pri'];
                 $record = $row;
+                $priority = $record['pri'];
             }
         }
 
