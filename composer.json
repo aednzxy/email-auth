@@ -1,18 +1,18 @@
 {
-  "name": "punarinta/email-auth",
+  "name": "aednzxy/email-auth",
   "description": "Discover IMAP/SMTP settings, authenticate via any email",
   "license": "MIT",
   "keywords": ["auth", "authentication", "dns", "email", "imap", "smtp", "discover"],
   "authors":
   [
     {
-      "name": "Vladimir Osipov",
-      "email": "vladimir.g.osipov@gmail.com"
+      "name": "Dean Hopkins",
+      "email": "deanhopkins@gmail.com"
     }
   ],
   "require":
   {
-    "php": ">=5.4.0"
+    "php": ">=7.1.0"
   },
   "require-dev": {},
   "autoload":
