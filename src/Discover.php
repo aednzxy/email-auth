@@ -14,7 +14,7 @@ class Discover
 {
     public $mxServer     = null;
     public $mxServerRoot = null;
-    
+
     /**
      * Discovers IMAP settings for an email
      *
@@ -34,9 +34,9 @@ class Discover
             {
                 return array
                 (
-                    'host'       => $host,
-                    'port'       => $port,
-                    'encryption' => 993 == $port ? 'ssl' : null,
+                  'host'       => $host,
+                  'port'       => $port,
+                  'encryption' => 993 == $port ? 'ssl' : null,
                 );
             }
         }
@@ -57,22 +57,23 @@ class Discover
 
         foreach ($prefixes as $prefix)
         {
-            list ($host, $port) = $this->analyse($email, $prefix, [465, 587, 25]);
+            list ($host, $port) = $this->analyse($email, $prefix, [465, 587, 25, 2525]);
 
             if ($host && $port)
             {
                 $encTypes =
-                [
-                    25  => null,
+                  [
+                    25 => null,
+                    2525 => null,
                     465 => 'ssl',
                     587 => 'tls',
-                ];
+                  ];
 
                 return array
                 (
-                    'host'       => $host,
-                    'port'       => $port,
-                    'encryption' => @$encTypes[$port] ?: null,
+                  'host'       => $host,
+                  'port'       => $port,
+                  'encryption' => @$encTypes[$port] ?: null,
                 );
             }
         }
@@ -115,25 +116,7 @@ class Discover
         }
         elseif ($mxServer)
         {
-            if ($port = Socket::pingPort($mxServer, $ports))
-            {
-                $host = $mxServer;
-            }
-            else
-            {
-                $revMxServer = gethostbyaddr(gethostbyname($mxServer));
-                $revMxServerDomains = explode('.', $revMxServer);
-                $revMxServerRoot = @implode('.', array_slice($revMxServerDomains, -2, 2));
-
-                if ($port = Socket::pingPort($prefix . $revMxServerRoot, $ports))
-                {
-                    $host = $prefix . $revMxServerRoot;
-                }
-                else if ($port = Socket::pingPort($prefix . $mxServerRoot, $ports))
-                {
-                    $host = $prefix . $mxServerRoot;
-                }
-            }
+            $host = $mxServer;
         }
 
         return [$host, $port];
