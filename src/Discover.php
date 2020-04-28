@@ -59,7 +59,7 @@ class Discover
         {
             list ($host, $port) = $this->analyse($email, $prefix, [465, 587, 25, 2525]);
 
-            if ($host && $port)
+            if ($host)
             {
                 $encTypes =
                   [
